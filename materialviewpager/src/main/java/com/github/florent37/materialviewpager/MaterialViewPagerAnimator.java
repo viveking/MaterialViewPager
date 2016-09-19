@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +19,6 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
-import android.support.v4.view.ViewCompat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -210,6 +210,13 @@ public class MaterialViewPagerAnimator {
 
                 if (this.settings.hideLogoWithFade) {
                     ViewCompat.setAlpha(mHeader.mLogo, 1 - percent);
+                    if(mHeader.mLogo.getVisibility() == View.VISIBLE && (1 - percent)==0 ){
+                        mHeader.mLogo.setVisibility(View.GONE);
+                        Log.d("logo header:","GONE");
+                    }else if(mHeader.mLogo.getVisibility() == View.GONE && (1 - percent)>0 ){
+                        mHeader.mLogo.setVisibility(View.VISIBLE);
+                        Log.d("logo header:","VISIBLE");
+                    }
                     ViewCompat.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
                 } else {
                     ViewCompat.setTranslationY(mHeader.mLogo, (mHeader.finalTitleY - mHeader.originalTitleY) * percent);
